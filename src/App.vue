@@ -6,7 +6,7 @@
       </transition>
     </router-view>
 
-    <dialog />
+    <Dialog />
   </div>
 </template>
 

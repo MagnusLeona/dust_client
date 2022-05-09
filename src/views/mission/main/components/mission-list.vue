@@ -25,12 +25,28 @@
 
               <div class="todo-list-card-head-opration flex-center">
                 <div
+                  v-if="showDelete(mission.status)"
                   class="button-delete flex-center"
                   @click="deleteMission(index)"
                 >
                   删除
                 </div>
                 <div
+                  v-if="showArchive(mission.status)"
+                  class="button-archive flex-center"
+                  @click="archiveMission(index)"
+                >
+                  归档
+                </div>
+                <div
+                  v-if="showModify(mission.status)"
+                  class="button-modify flex-center"
+                  @click="modifyMission(index)"
+                >
+                  修改
+                </div>
+                <div
+                  v-if="showFinish(mission.status)"
                   class="button-finish flex-center"
                   @click="finishMission(index)"
                 >
@@ -113,13 +129,27 @@ export default {
       this.showDetail = -1;
     },
 
+    modifyMission: function (index) {
+      event.stopPropagation();
+      this.$emit("modifyMission", index);
+      this.showDetail = -1;
+    },
+
+    archiveMission: function (index) {
+      event.stopPropagation();
+      this.$emit("archiveMission", index);
+      this.showDetail = -1;
+    },
+
     getIcon: function (status) {
       switch (status) {
         case 0:
-          return "icon-going-gray";
+          return "icon-going-yellow";
         case 10:
           return "icon-done-purple";
-        case -1:
+        case 11:
+          return "icon-file";
+        case 12:
           return "icon-late-gray";
         default:
           break;
@@ -132,11 +162,41 @@ export default {
           return "新建";
         case 10:
           return "已完成";
-        case -1:
+        case 11:
+          return "已归档";
+        case 12:
           return "中止";
         default:
           break;
       }
+    },
+
+    showFinish: function (status) {
+      if (status < 10 && status >= 0) {
+        return true;
+      }
+      return false;
+    },
+
+    showDelete: function (status) {
+      if (status < 10) {
+        return true;
+      }
+      return false;
+    },
+
+    showModify: function (status) {
+      if (status < 10 && status >= 0) {
+        return true;
+      }
+      return false;
+    },
+
+    showArchive: function (status) {
+      if (status === 10) {
+        return true;
+      }
+      return false;
     },
   },
 };
@@ -177,8 +237,8 @@ export default {
       border-radius: 5px;
       z-index: 10;
       color: white;
-      background: rgba(95, 66, 95, 0.25);
-      backdrop-filter: blur(10px);
+      background-color: rgba(223, 211, 223, 0.2);
+      backdrop-filter: blur(1px);
 
       &-name {
         overflow: hidden;
@@ -226,7 +286,7 @@ export default {
 
           &:hover {
             box-shadow: inset 0px 0px 10px rgba(112, 1, 1, 0.5);
-            background-color: rgba(196, 76, 112, 0.5);
+            background-color: rgba(241, 170, 191, 0.5);
           }
         }
 
@@ -240,7 +300,35 @@ export default {
 
           &:hover {
             box-shadow: inset 0px 0px 10px rgba(2, 48, 32, 0.9);
-            background-color: rgba(14, 150, 105, 0.5);
+            background-color: rgba(138, 221, 193, 0.5);
+          }
+        }
+
+        .button-modify {
+          height: 60%;
+          background-color: rgba(228, 217, 16, 0.5);
+          width: 80px;
+          border-radius: 5px;
+          transition: all ease 0.25s;
+          margin-left: 10px;
+
+          &:hover {
+            box-shadow: inset 0px 0px 10px rgba(109, 96, 8, 0.9);
+            background-color: rgba(232, 240, 128, 0.837);
+          }
+        }
+
+        .button-archive {
+          height: 60%;
+          background-color: rgba(22, 188, 206, 0.5);
+          width: 80px;
+          border-radius: 5px;
+          transition: all ease 0.25s;
+          margin-left: 10px;
+
+          &:hover {
+            box-shadow: inset 0px 0px 10px rgba(25, 171, 229, 0.9);
+            background-color: rgba(150, 217, 237, 0.837);
           }
         }
       }
@@ -254,8 +342,8 @@ export default {
           padding: 20px 20px;
           border-radius: 20px;
           color: rgba(255, 255, 255, 1);
-          background-color: rgba(95, 66, 95, 0.25);
-          backdrop-filter: blur(10px);
+          background-color: rgba(209, 192, 209, 0.2);
+          backdrop-filter: blur(2px);
 
           .item {
             margin-top: 20px;

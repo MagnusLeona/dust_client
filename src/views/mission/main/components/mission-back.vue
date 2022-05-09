@@ -1,31 +1,14 @@
 <template>
-  <div
-    class="mission-add-icon flex-center"
-    @click="checkIfShowMissionAddBody()"
-  >
+  <div class="mission-add-icon flex-center" @click="$emit('back')">
     <div class="mission-add-icon-content flex-center">
-      <svg-icon icon="icon-add" />
+      <svg-icon icon="icon-left" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    showBody: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  setup(props, ctx) {
-    const checkIfShowMissionAddBody = function () {
-      ctx.emit("update:showBody", !props.showBody);
-    };
-
-    return {
-      checkIfShowMissionAddBody,
-    };
-  },
+  setup(props, ctx) {},
   data() {
     return {};
   },
@@ -36,9 +19,10 @@ export default {
 .mission-add-icon {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
   font-weight: 900;
   position: absolute;
-  right: 20px;
+  left: 20px;
   bottom: 20px;
   border: 0;
   z-index: 10;
@@ -57,17 +41,20 @@ export default {
 
   &:hover {
     animation-name: run-in-circle;
-    animation-duration: 3s;
+    animation-duration: 1.2s;
     animation-iteration-count: infinite;
   }
 }
 
 @keyframes run-in-circle {
   0% {
-    transform: rotateZ(0);
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
   }
   100% {
-    transform: rotateZ(360deg);
+    transform: translateX(0);
   }
 }
 </style>

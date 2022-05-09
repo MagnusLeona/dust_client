@@ -1,5 +1,6 @@
 import axios from 'axios';
 import router from '../router/index'
+import { toRefs, unref } from "vue"
 
 const resolveResponse = function (response) {
   let { data, status } = response;
@@ -11,8 +12,21 @@ const resolveResponse = function (response) {
 
   const { code, msg, body } = data;
   // code 为000表示交易执行成功，直接取返回数据即可
+
   if (code === 200) {
     return body;
+  } else if (code === 700) {
+    // 登录问题
+    let curr = { ...router.currentRoute };
+    console.log("currentRouter",)
+    console.log(1)
+    router.replace({
+      path: "/login",
+      query: {
+        curr: encodeURIComponent(curr._value.fullPath)
+      }
+    })
+    return;
   } else {
     //自定义抛错
     let e = {

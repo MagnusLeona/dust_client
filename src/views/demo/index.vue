@@ -47,28 +47,40 @@
       </svg> -->
     </div>
     <!-- <div class="poly"></div> -->
-    <Alert v-model:visible="visible"></Alert>
-
     <input type="button" value="abc" @click="click" />
+    <!-- <Alert :visible="true" :info="{ data: {} }" /> -->
+
+    <div class="text-with-border">
+      <svg
+        height="100%"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        class="svg"
+      >
+        <rect class="outline" height="100%" width="100%" />
+      </svg>
+      <div class="svg-text flex-center">确认</div>
+    </div>
+
+    <div class="italic-d">D</div>
   </div>
 </template>
 
 <script>
-import { reactive, onMounted, ref } from "vue";
-import { QueryMissionsForUser } from "@/requests/index";
+import { reactive, onMounted, ref, getCurrentInstance } from "vue";
 import comp from "./compo.vue";
-import MissionList from "../mission/components/mission-list.vue";
 import TimeSelector from "@/components/timer/time-selector.vue";
 import Alert from "@/components/dialog/components/alert.vue";
+import Toast from "@/components/dialog/components/toast.vue";
 
 export default {
   components: {
     comp,
-    MissionList,
     TimeSelector,
     Alert,
+    Toast,
   },
-  setup() {
+  setup(props, ctx) {
     let missionList = reactive([]);
     let visible = ref(true);
     let timeSelectorVisible = ref(true);
@@ -77,10 +89,10 @@ export default {
 
     onMounted(() => {});
 
-    const click = function () {
-      console.log("abc", visible);
-      let currVisible = visible.value;
-      visible.value = !currVisible;
+    const { proxy } = getCurrentInstance();
+
+    const click = () => {
+      proxy.$dust.toast({ title: "abc" });
     };
 
     return {
@@ -248,5 +260,57 @@ export default {
   width: 200px;
   height: 100px;
   background-color: red;
+}
+
+.text-with-border {
+  width: 250px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+
+  &:hover {
+    .svg {
+      .outline {
+        stroke-dasharray: 600 0;
+        stroke-dashoffset: 475;
+      }
+    }
+  }
+
+  .svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .outline {
+      stroke-width: 3px;
+      fill: transparent;
+      stroke: #1b8798;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      stroke-dasharray: 100 500;
+      stroke-dashoffset: 225;
+      transition: all ease 0.5s;
+    }
+  }
+
+  .svg-text {
+    width: 100%;
+    height: 100%;
+    font-size: 27px;
+    color: #000;
+    font-family: "Helvetica";
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.italic-d {
+  font-size: 100px;
+  font-family: italic;
 }
 </style>

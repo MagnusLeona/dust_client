@@ -3,6 +3,8 @@ import login from './routes/login';
 import main from './routes/main';
 import mission from './routes/mission';
 import demo from './routes/demo'
+import techies from './routes/techies'
+import story from './routes/story'
 
 const router = createRouter({
   history: createWebHistory('/dust/'),
@@ -10,7 +12,9 @@ const router = createRouter({
     ...login,
     ...main,
     ...mission,
-    ...demo
+    ...demo,
+    ...techies,
+    ...story
   ]
 });
 

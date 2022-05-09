@@ -17,3 +17,11 @@ export const DeleteMissionForUser = function (params) {
 export const FinishMissionForUser = function (params) {
   return request({ url: `${BASE_SERVER_URL}/user/mission/finish/for-all/${params.missionId}`, params: { ...params }, method: "POST" })
 }
+
+export const UpdateMissionForUser = function (params) {
+  return request({ url: `${BASE_SERVER_URL}/user/mission/update`, params: { ...params }, method: "POST" })
+}
+
+export const ArchiveMissionForUser = function (params) {
+  return request({ url: `${BASE_SERVER_URL}/user/mission/archive/${params.missionId}`, method: "POST" })
+}

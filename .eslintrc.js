@@ -118,7 +118,7 @@ module.exports = {
     "no-undefined": 0, //不允许把undefined当做标识符使用
     "no-unused-vars": [0, { "vars": "all", "args": "after-used" }], //不允许有声明后未使用的变量或者参数
     "no-use-before-define": [2, "nofunc"], //不允许在未定义之前就使用变量
-    "indent": ['error', 2],//强制一致的缩进风格
+    "indent": ['off', 2, { SwitchCase: 2 }],//强制一致的缩进风格
     "brace-style": [0, "1tbs", { "allowSingleLine": false }], //大括号风格
     "camelcase": [2, { "properties": "never" }], //强制驼峰命名规则
     "comma-style": [0, "last"], //逗号风格

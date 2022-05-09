@@ -10,6 +10,11 @@ import LoginInput from "./components/login-input";
 import { Login } from "../../requests";
 
 export default {
+  props: {
+    curr: {
+      type: String,
+    },
+  },
   components: {
     LoginInput,
   },
@@ -21,7 +26,9 @@ export default {
         password: password,
       })
         .then((result) => {
-          this.$router.replace("main");
+          this.$router.replace({
+            path: this.curr ? this.curr : "main",
+          });
         })
         ["catch"]((e) => {
           console.error(e);

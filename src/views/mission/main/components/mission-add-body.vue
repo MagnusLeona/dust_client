@@ -12,6 +12,7 @@
             v-model="title"
             id="title"
             class="title-input-input"
+            autocomplete="off"
           />
           <label for="title" class="title-input-label flex-center">标 题</label>
         </div>
@@ -21,20 +22,20 @@
         <div class="deadline-date-input">
           <input
             type="button"
-            id="deadlineDate"
+            id="deadlineTime"
             class="deadline-date-input-input"
             readonly
-            :value="`${deadlineDate.getFullYear()}-${
-              deadlineDate.getMonth() + 1
-            }-${deadlineDate.getDate()}  ${deadlineDate.getHours()}:${deadlineDate.getMinutes()}`"
+            :value="`${deadlineTime.getFullYear()}-${
+              deadlineTime.getMonth() + 1
+            }-${deadlineTime.getDate()}  ${deadlineTime.getHours()}:${deadlineTime.getMinutes()}`"
             @click="timeSelectorVisible = true"
           />
           <time-selector
             v-model:visible="timeSelectorVisible"
-            v-model:selected-date="deadlineDate"
+            v-model:selected-date="deadlineTime"
           ></time-selector>
           <label
-            for="deadlineDate"
+            for="deadlineTime"
             class="deadline-date-input-label flex-center"
             >截止日期</label
           >
@@ -62,6 +63,8 @@
 <script>
 import CommonInput from "@/components/input/common-input";
 import TimeSelector from "@/components/timer/time-selector";
+
+import { timeFormatter } from "@/utils/utils";
 
 export default {
   props: {
@@ -92,16 +95,19 @@ export default {
       title: "",
       content: "",
       timeSelectorVisible: false,
-      deadlineDate: new Date(),
+      deadlineTime: new Date(),
     };
   },
   methods: {
     commit: function () {
-      if (!this.title || !this.content) return;
+      if (!this.title || !this.content) {
+        this.$dust.toast({ title: "请输入完整信息" });
+        return;
+      }
       this.$emit("commit", {
         name: this.title,
         content: this.content,
-        deadLineDate: this.deadlineDate.getTime(),
+        deadLineTime: timeFormatter(this.deadlineTime),
       });
     },
   },
@@ -202,6 +208,17 @@ export default {
           0 0 10px rgba(115, 1, 138, 0.6);
         box-shadow: inset 0 1px 1px rgba(204, 63, 153, 0.075),
           0 0 10px rgba(238, 127, 153, 0.6);
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+        background-color: rgba(95, 66, 95, 0.1);
+        border-radius: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(127, 81, 197, 0.5);
+        border-radius: 2px;
       }
     }
 

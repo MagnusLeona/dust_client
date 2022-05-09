@@ -53,7 +53,8 @@ export default {
   left: 50%;
   transform: translate(-100%, -50%);
   backdrop-filter: blur(6px);
-  box-shadow: 0 0 5px #ee7f99;
+  box-shadow: 0 0 1px #ee728f, 0 0 5px #eb89a0, 0 0 10px #ebaab9,
+    0 0 16px #e1b7c0, 0 0 25px #e1c7cd;
 }
 
 .input-box {
