@@ -135,8 +135,6 @@ export default {
       }
     },
   },
-  mounted() {},
-  beforeDestroy() {},
 };
 </script>
 
@@ -222,6 +220,17 @@ export default {
           0 0 10px rgba(115, 1, 138, 0.6);
         box-shadow: inset 0 1px 1px rgba(204, 63, 153, 0.075),
           0 0 10px rgba(238, 127, 153, 0.6);
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+        background-color: rgba(95, 66, 95, 0.1);
+        border-radius: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(127, 81, 197, 0.5);
+        border-radius: 2px;
       }
     }
 

@@ -1,7 +1,10 @@
 const routes = [
   {
     path: '/stories',
-    component: () => import('../../views/stories/index.vue')
+    component: () => import('../../views/stories/index.vue'),
+    meta: {
+      order: 2
+    }
   }
 ];
 

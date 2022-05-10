@@ -1,6 +1,11 @@
 <template >
   <div class="todo-container">
     <MissionHeader />
+    <MissionSortType
+      v-model:desc="desc"
+      :sortType="sortType"
+      @sortByDesc="sortByDesc"
+    />
     <MissionList
       :loaded="loaded"
       :missionList="missionList"
@@ -11,6 +16,8 @@
     />
     <MissionAddIcon
       ref="missionAddIcon"
+      @toTotal="toTotal"
+      @sortBy="sortBy"
       v-model:show-body="showAddMissionBlock"
     />
     <MissionAddBody
@@ -37,6 +44,7 @@ import MissionAddBody from "./components/mission-add-body.vue";
 import MissionAddIcon from "./components/mission-add-icon.vue";
 import MissionBack from "./components/mission-back.vue";
 import MissionModifyBody from "./components/mission-modify-body.vue";
+import MissionSortType from "./components/mission-sort-type.vue";
 
 import {
   QueryMissionsForUser,
@@ -56,6 +64,7 @@ export default {
     MissionAddBody,
     MissionBack,
     MissionModifyBody,
+    MissionSortType,
   },
   setup() {
     let missionList = reactive([]);
@@ -67,21 +76,9 @@ export default {
     let showModifyMissionBlock = ref(false);
     let successfullyModified = ref(false);
     let currentModifyingMission = reactive({ data: {} });
-
-    const queryMissionList = function () {
-      loaded.value = false;
-      missionList.splice(0, missionList.length);
-      QueryMissionsForUser().then((res) => {
-        loaded.value = true;
-        res.forEach((item) => {
-          missionList.push(item);
-        });
-      });
-    };
-
-    onMounted(() => {
-      queryMissionList();
-    });
+    // sortType: 0-默认按照id排序 1-按照状态排序 2-按照创建时间排序 3-按照截至时间排序
+    let sortType = ref(0);
+    let desc = ref(false);
 
     return {
       missionList,
@@ -89,16 +86,29 @@ export default {
       on,
       loaded,
       showAddMissionBlock,
-      queryMissionList,
       successfullyAdded,
       showModifyMissionBlock,
       successfullyModified,
       currentModifyingMission,
+      desc,
+      sortType,
     };
   },
   methods: {
     checkthis: function () {
       this.check = !this.check;
+    },
+
+    queryMissionList: function () {
+      this.loaded = false;
+      this.missionList.splice(0, this.missionList.length);
+      QueryMissionsForUser().then((res) => {
+        this.loaded = true;
+        res.forEach((item) => {
+          this.missionList.push(item);
+        });
+        this.sort();
+      });
     },
 
     commit: function (params) {
@@ -157,6 +167,84 @@ export default {
       });
     },
 
+    toTotal: function () {
+      this.$router.push({
+        path: "/mission/total",
+      });
+    },
+
+    sortByDesc: function (value) {
+      this.desc = value;
+      this.sort();
+      // if (value) {
+      //   this.missionList.sort((a, b) => {
+      //     return;
+      //   });
+      // }
+    },
+
+    sortBy: function () {
+      let curr = this.sortType;
+      curr++;
+      curr = curr % 4;
+      this.sortType = curr;
+      this.sort();
+    },
+
+    sort: function () {
+      console.log("sorting");
+      console.log(this.sortType);
+      switch (this.sortType) {
+        case 0:
+          this.missionList.sort((a, b) => {
+            if (a.id > b.id) {
+              return this.desc ? -1 : 1;
+            } else if (a.id < b.id) {
+              return this.desc ? 1 : -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case 1:
+          this.missionList.sort((a, b) => {
+            console.log(a.status, b.status);
+            if (a.status > b.status) {
+              return this.desc ? -1 : 1;
+            } else if (a.status < b.status) {
+              return this.desc ? 1 : -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case 2:
+          this.missionList.sort((a, b) => {
+            if (a.createTime > b.createTime) {
+              return this.desc ? -1 : 1;
+            } else if (a.createTime < b.createTime) {
+              return this.desc ? 1 : -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        case 3:
+          this.missionList.sort((a, b) => {
+            if (a.deadLineTime > b.deadLineTime) {
+              return this.desc ? -1 : 1;
+            } else if (a.deadLineTime < b.deadLineTime) {
+              return this.desc ? 1 : -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+        default:
+          break;
+      }
+    },
+
     back: function () {
       this.$router.push({
         path: "/main",
@@ -187,6 +275,7 @@ export default {
     },
   },
   mounted() {
+    this.queryMissionList();
     this.addClickEventListener();
   },
   unmounted() {

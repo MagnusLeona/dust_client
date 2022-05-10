@@ -3,7 +3,7 @@ import request from '../request';
 const BASE_SERVER_URL = '/dust-server';
 
 export const QueryMissionsForUser = function (params) {
-  return request({ url: `${BASE_SERVER_URL}/user/mission/get`, params: { ...params }, method: 'POST' });
+  return request({ url: `${BASE_SERVER_URL}/user/mission/get`, params: { ...params }, method: 'GET' });
 };
 
 export const SaveMissionForUser = function (params) {
@@ -24,4 +24,8 @@ export const UpdateMissionForUser = function (params) {
 
 export const ArchiveMissionForUser = function (params) {
   return request({ url: `${BASE_SERVER_URL}/user/mission/archive/${params.missionId}`, method: "POST" })
+}
+
+export const QueryArchivedMissionForUser = function (params) {
+  return request({ url: `${BASE_SERVER_URL}/user/mission/get/archived`, method: "GET" })
 }

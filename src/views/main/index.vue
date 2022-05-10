@@ -17,16 +17,16 @@ export default {
     return {
       cardConfigs: [
         {
-          title: "Todos",
-          content: "To contribute greater efficiency",
-          url: "/mission",
-          component: "FunctionTodos",
-        },
-        {
           title: "Techies",
           content: "Let techies design your output !",
           url: "/techies",
           component: "FunctionTechies",
+        },
+        {
+          title: "Todos",
+          content: "To contribute greater efficiency",
+          url: "/mission",
+          component: "FunctionTodos",
         },
         {
           title: "Stories",

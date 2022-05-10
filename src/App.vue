@@ -1,7 +1,7 @@
 <template>
   <div class="app-view">
     <router-view v-slot="{ Component }" class="router-view">
-      <transition name="in-out-translate-fade" class="container">
+      <transition :name="transitionAnimation" class="container">
         <component :is="Component" />
       </transition>
     </router-view>
@@ -18,6 +18,30 @@ export default {
   methods: {},
   components: {
     Dialog,
+  },
+  data() {
+    return {
+      transitionAnimation: "",
+    };
+  },
+  methods: {
+    beforeRouteLeave: function () {
+      this.$router.beforeEach((to, from) => {
+        if (!from || !from.meta || !from.meta.order) {
+          // 如果没有前置页面，直接进入此页面，则展示其他动画
+          this.transitionAnimation = "in-translate-fade";
+        } else {
+          if (to.meta.order >= from.meta.order) {
+            this.transitionAnimation = "in-out-translate-fade";
+          } else {
+            this.transitionAnimation = "out-in-translate-fade";
+          }
+        }
+      });
+    },
+  },
+  mounted() {
+    this.beforeRouteLeave();
   },
 };
 </script>
@@ -50,5 +74,29 @@ export default {
 }
 .in-out-translate-fade-leave-active {
   transform: translateX(-100%);
+}
+
+.out-in-translate-fade-enter-active {
+  transition: all 0.5s;
+}
+.out-in-translate-fade-leave-active {
+  transition: all 1s;
+}
+.out-in-translate-fade-leave-active {
+  opacity: 0;
+}
+.out-in-translate-fade-enter-from {
+  transform: translateX(-100%);
+}
+.out-in-translate-fade-leave-active {
+  transform: translateX(100%);
+}
+
+.in-translate-fade-enter-active {
+  transition: all 0.5s ease-in-out;
+}
+.in-translate-fade-enter-from {
+  transform: translateY(800px);
+  opacity: 0.3;
 }
 </style>

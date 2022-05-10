@@ -4,20 +4,13 @@
     enter-active-class="missionlist-enter-active"
     leave-to-class="missionlist-leave-to"
     leave-active-class="missionlist-leave-active"
-    mode="out-in"
   >
-    <div class="todo-list" v-if="!loaded || missionList.length > 0">
-      <div class="todo-list-inner">
-        <transition-group
-          enter-from-class="list-enter-from"
-          enter-active-class="list-enter-active"
-          leave-active-class="list-leave-active"
-          leave-to-class="list-leave-to"
-          tag="div"
-        >
+    <div class="todo" v-if="!loaded || missionList.length > 0">
+      <div class="todo-list">
+        <transition-group name="dust-list" tag="div">
           <div
             v-for="(mission, index) in missionList"
-            :key="`mission${index}`"
+            v-bind:key="mission.id"
             class="todo-list-card"
           >
             <div class="todo-list-card-head" @click="checkIfShowDetail(index)">
@@ -81,6 +74,7 @@
         </transition-group>
       </div>
     </div>
+
     <div class="no-data flex-center" v-else>
       <svg-icon icon="icon-nodata" class="no-data-svg" />
       <div class="no-data-text">糟糕，居然没有待办任务·······</div>
@@ -203,16 +197,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.todo-list {
+.todo {
   height: 100%;
   position: relative;
   overflow: hidden;
-  padding: 80px 100px 80px 100px;
+  padding: 100px 100px 80px 100px;
 
-  &-inner {
+  &-list {
     height: 100%;
     padding: 0 5px;
     overflow-y: auto;
+    display: block;
     &::-webkit-scrollbar {
       width: 4px;
       background-color: rgba(95, 66, 95, 0.1);
@@ -223,130 +218,132 @@ export default {
       background-color: rgba(127, 81, 197, 0.5);
       border-radius: 2px;
     }
-  }
 
-  &-card {
-    margin-bottom: 20px;
-    &-head {
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      height: 72px;
-      user-select: none;
-      cursor: pointer;
-      border-radius: 5px;
-      z-index: 10;
-      color: white;
-      background-color: rgba(223, 211, 223, 0.2);
-      backdrop-filter: blur(1px);
+    &-card {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px;
+      &-head {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        height: 72px;
+        user-select: none;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 10;
+        color: white;
+        background-color: rgba(223, 211, 223, 0.2);
+        backdrop-filter: blur(1px);
 
-      &-name {
-        overflow: hidden;
-      }
-
-      &-status {
-        margin-left: 20px;
-      }
-
-      &-opration {
-        margin-left: auto;
-        height: 100%;
-        opacity: 0;
-        transition: all ease 1s;
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-          content: "";
-          width: 100%;
-          height: 60%;
-          position: absolute;
-          left: 0;
-          z-index: 110;
-          backdrop-filter: blur(10px);
-          border-radius: 5px;
-          background-color: rgba(95, 66, 95, 0.25);
-          transition: all ease-in-out 0.25s;
+        &-name {
+          overflow: hidden;
         }
 
-        &:hover {
-          opacity: 1;
+        &-status {
+          margin-left: 20px;
+        }
+
+        &-opration {
+          margin-left: auto;
+          height: 100%;
+          opacity: 0;
+          transition: all ease 1s;
+          position: relative;
+          overflow: hidden;
 
           &::before {
-            transform: translateX(-100%);
+            content: "";
+            width: 100%;
+            height: 60%;
+            position: absolute;
+            left: 0;
+            z-index: 110;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            background-color: rgba(95, 66, 95, 0.25);
+            transition: all ease-in-out 0.25s;
           }
-        }
-
-        .button-delete {
-          height: 60%;
-          background-color: rgba(148, 5, 5, 0.5);
-          width: 80px;
-          border-radius: 5px;
-          transition: all ease 0.25s;
 
           &:hover {
-            box-shadow: inset 0px 0px 10px rgba(112, 1, 1, 0.5);
-            background-color: rgba(241, 170, 191, 0.5);
+            opacity: 1;
+
+            &::before {
+              transform: translateX(-100%);
+            }
           }
-        }
 
-        .button-finish {
-          height: 60%;
-          background-color: rgba(4, 71, 49, 0.5);
-          width: 80px;
-          border-radius: 5px;
-          transition: all ease 0.25s;
-          margin-left: 10px;
+          .button-delete {
+            height: 60%;
+            background-color: rgba(148, 5, 5, 0.5);
+            width: 80px;
+            border-radius: 5px;
+            transition: all ease 0.25s;
 
-          &:hover {
-            box-shadow: inset 0px 0px 10px rgba(2, 48, 32, 0.9);
-            background-color: rgba(138, 221, 193, 0.5);
+            &:hover {
+              box-shadow: inset 0px 0px 10px rgba(112, 1, 1, 0.5);
+              background-color: rgba(241, 170, 191, 0.5);
+            }
           }
-        }
 
-        .button-modify {
-          height: 60%;
-          background-color: rgba(228, 217, 16, 0.5);
-          width: 80px;
-          border-radius: 5px;
-          transition: all ease 0.25s;
-          margin-left: 10px;
+          .button-finish {
+            height: 60%;
+            background-color: rgba(4, 71, 49, 0.5);
+            width: 80px;
+            border-radius: 5px;
+            transition: all ease 0.25s;
+            margin-left: 10px;
 
-          &:hover {
-            box-shadow: inset 0px 0px 10px rgba(109, 96, 8, 0.9);
-            background-color: rgba(232, 240, 128, 0.837);
+            &:hover {
+              box-shadow: inset 0px 0px 10px rgba(2, 48, 32, 0.9);
+              background-color: rgba(138, 221, 193, 0.5);
+            }
           }
-        }
 
-        .button-archive {
-          height: 60%;
-          background-color: rgba(22, 188, 206, 0.5);
-          width: 80px;
-          border-radius: 5px;
-          transition: all ease 0.25s;
-          margin-left: 10px;
+          .button-modify {
+            height: 60%;
+            background-color: rgba(228, 217, 16, 0.5);
+            width: 80px;
+            border-radius: 5px;
+            transition: all ease 0.25s;
+            margin-left: 10px;
 
-          &:hover {
-            box-shadow: inset 0px 0px 10px rgba(25, 171, 229, 0.9);
-            background-color: rgba(150, 217, 237, 0.837);
+            &:hover {
+              box-shadow: inset 0px 0px 10px rgba(109, 96, 8, 0.9);
+              background-color: rgba(232, 240, 128, 0.837);
+            }
+          }
+
+          .button-archive {
+            height: 60%;
+            background-color: rgba(22, 188, 206, 0.5);
+            width: 80px;
+            border-radius: 5px;
+            transition: all ease 0.25s;
+            margin-left: 10px;
+
+            &:hover {
+              box-shadow: inset 0px 0px 10px rgba(25, 171, 229, 0.9);
+              background-color: rgba(150, 217, 237, 0.837);
+            }
           }
         }
       }
-    }
 
-    &-detail {
-      padding: 0 50px;
-      &-content {
-        padding-top: 20px;
-        &-box {
-          padding: 20px 20px;
-          border-radius: 20px;
-          color: rgba(255, 255, 255, 1);
-          background-color: rgba(209, 192, 209, 0.2);
-          backdrop-filter: blur(2px);
+      &-detail {
+        padding: 0 50px;
+        &-content {
+          padding-top: 20px;
+          &-box {
+            padding: 20px 20px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(209, 192, 209, 0.2);
+            backdrop-filter: blur(2px);
 
-          .item {
-            margin-top: 20px;
+            .item {
+              margin-top: 20px;
+            }
           }
         }
       }
@@ -371,7 +368,8 @@ export default {
 }
 
 .missionlist-enter-from {
-  transform: translateX(200px);
+  opacity: 0;
+  transform: scale(0);
 }
 .missionlist-enter-active {
   transition: all 0.5s ease;
@@ -380,21 +378,29 @@ export default {
   transition: all 0.5s ease;
 }
 .missionlist-leave-to {
-  transform: translateX(-100px);
   opacity: 0;
-}
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.25s;
-}
-.list-enter-from,
-.list-leave-to {
-  transform: scale(0);
 }
 
 .status-icon {
   width: 24px;
   height: 24px;
+}
+
+/* 下面的 .v-move 和 .v-leave-active 配合使用，能够实现列表后续的元素，渐渐地移动过来的效果 */
+.dust-list-enter-from {
+  transform: translate(0, 30px);
+}
+.dust-list-enter-active {
+  transition: all 0.5s ease;
+}
+.dust-list-leave-to {
+  transform: translate(0, 30px);
+}
+.dust-list-move {
+  transition: all 0.3s ease;
+}
+.dust-list-leave-active {
+  position: absolute;
+  transition: all 0.5s ease;
 }
 </style>                                                                                         

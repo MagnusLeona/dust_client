@@ -1,7 +1,10 @@
 const routes = [
   {
     path: '/demo',
-    component: () => import('../../views/demo/index')
+    component: () => import('../../views/demo/index'),
+    meta: {
+      order: 0
+    }
   }
 ];
 

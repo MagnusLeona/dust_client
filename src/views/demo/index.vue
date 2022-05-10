@@ -63,6 +63,19 @@
     </div>
 
     <div class="italic-d">D</div>
+
+    <div>
+      <div>
+        <!-- 设置一个添加按钮 -->
+        <button v-on:click="add">Add</button>
+        <!-- 设置一个删除按钮 -->
+        <button v-on:click="remove">Remove</button>
+        <button v-on:click="shuffle">Shuffle</button>
+
+        <!-- 使用tag指定包括的元素为P标签，命名为list  -->
+        <comp :list="items" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,6 +99,8 @@ export default {
     let timeSelectorVisible = ref(true);
     let deadlineDate = ref(Date);
     deadlineDate.value = new Date();
+    let items = reactive([1, 2, 3, 4, 5, 6]);
+    let nextNum = ref(10);
 
     onMounted(() => {});
 
@@ -101,7 +116,23 @@ export default {
       click,
       timeSelectorVisible,
       deadlineDate,
+      items,
+      nextNum,
     };
+  },
+  methods: {
+    randomIndex: function () {
+      // 通过获取items列表中的随机下标
+      return Math.floor(Math.random() * this.items.length);
+    },
+    add: function () {
+      // 在列表items随机位置下标，设置0为不删除数据，添加this.nextNum++的数据
+      this.items.splice(this.randomIndex(), 0, this.nextNum++);
+    },
+    remove: function () {
+      // 随机删除列表中的其中一个数据
+      this.items.splice(this.randomIndex(), 1);
+    },
   },
 };
 </script>
@@ -313,4 +344,29 @@ export default {
   font-size: 100px;
   font-family: italic;
 }
+
+/*设置列表的样式*/
+.list-item {
+  display: inline-block;
+  width: 100%;
+  margin-right: 10px;
+}
+/*设置列表transition-group的name为list的入场以及离场动画效果*/
+// .list-enter-active,
+// .list-leave-active {
+//   transition: all 1s;
+// }
+// .list-enter, .list-leave-to
+//             /* .list-leave-active for below version 2.1.8 */ {
+//   opacity: 0;
+//   transform: translateY(30px);
+// }
+
+/* 下面的 .v-move 和 .v-leave-active 配合使用，能够实现列表后续的元素，渐渐地移动过来的效果 */
+// .list-move {
+//   transition: all 0.6s ease;
+// }
+// .list-leave-active {
+//   position: absolute;
+// }
 </style>

@@ -2,7 +2,10 @@ const routes = [
   {
     path: '/login',
     component: () => import('../../views/login/login'),
-    props: true
+    props: true,
+    meta: {
+      order: 0
+    }
   }
 ];
 
