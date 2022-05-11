@@ -18,6 +18,7 @@ export default {
   methods: {
     beforeRouteLeave: function () {
       this.$router.beforeEach((to, from) => {
+        console.log(to, from);
         if (!from || !from.meta || !from.meta.order) {
           // 如果没有前置页面，直接进入此页面，则展示其他动画
           this.transitionAnimation = "in-translate-fade";
@@ -32,7 +33,11 @@ export default {
     },
   },
   mounted() {
+    console.log("abc");
     this.beforeRouteLeave();
+  },
+  unmounted() {
+    this.$router.beforeEach = () => {};
   },
 };
 </script>

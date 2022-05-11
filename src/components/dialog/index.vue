@@ -36,7 +36,6 @@ export default {
     let toastInfo = reactive({ data: {} });
 
     onMounted(() => {
-      console.log("onmounted alert");
       // 注册所有的监听器
       const alertListener = ({ detail }) => {
         alertVisible.value = true;

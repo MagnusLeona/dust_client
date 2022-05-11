@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import login from './routes/login';
 import main from './routes/main';
 import mission from './routes/mission';
@@ -7,7 +7,7 @@ import techies from './routes/techies'
 import story from './routes/story'
 
 const router = createRouter({
-  history: createWebHistory('/dust/'),
+  history: createWebHistory("/dust"),
   routes: [
     ...login,
     ...main,

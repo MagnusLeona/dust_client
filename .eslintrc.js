@@ -1,27 +1,28 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true,
-    "es6": true
+  "root": true,
+  "env": {
+    "node": true,
+    "es2021": true
   },
-  parserOptions: {
-    parser: 'babel-eslint',
-    "sourceType": "module",
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-essential"
+  ],
+  "parserOptions": {
+    "parser": 'babel-eslint',
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "plugins": [
     "vue"
   ],
-  extends: [
-    'plugin:vue/essential',
-    'eslint:recommended',
-  ],
-  rules: {
+  "rules": {
+    'vue/no-v-model-argument': 'off',
     "no-unexpected-multiline": 0,
     "no-parsing-error": 0,
     'vue/no-parsing-error': [2, {
       "x-invalid-end-tag": true
     }],
-    'vue/no-v-model-argument': 'off',
     "comma-dangle": 0, //是否允许对象中出现结尾逗号
     "no-cond-assign": 0, //条件语句的条件中不允许出现赋值运算符
     "no-console": 0, //不允许出现console语句

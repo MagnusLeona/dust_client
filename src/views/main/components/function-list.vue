@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
 import { EffectCreative, Pagination } from "swiper";
-import "swiper/swiper.scss";
-import "swiper/modules/pagination/pagination.scss";
-import "swiper/modules/effect-creative/effect-creative.scss";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/effect-creative";
 
 import FunctionMore from "./function-more.vue";
 import FunctionTodos from "./function-todos.vue";

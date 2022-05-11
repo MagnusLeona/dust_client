@@ -1,5 +1,6 @@
 <template>
   <div class="demo">
+    <svg-icon icon="icon-going-yellow"></svg-icon>
     {{ visible }}
     <div>
       <svg width="900" height="200" version="1.1">

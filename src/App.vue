@@ -5,7 +5,6 @@
         <component :is="Component" />
       </transition>
     </router-view>
-
     <Dialog />
   </div>
 </template>
