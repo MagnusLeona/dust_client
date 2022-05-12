@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   entry: path.join(__dirname, "../src/dust.js"),
   output: {
-    filename: 'index.html',
+    filename: 'dust.js',
     path: resolve(__dirname, "../dist"),
     chunkFilename: "js/[name].bundle.js"
   },

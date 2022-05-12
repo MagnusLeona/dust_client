@@ -16,15 +16,15 @@
           class="line"
         />
       </svg>
-      <!-- <svg width="900" height="400" xmlns="http://www.w3.org/2000/svg">
+      <svg width="900" height="400" xmlns="http://www.w3.org/2000/svg">
         <symbol id="text">
-          <text x="10%" y="60%" class="text">
+          <text x="10%" y="70%" class="text">
             Todos
             <animate
               attributeName="dy"
-              values="0 0 0 0 0;-60 60 0 0 0;0 -60 60 0 0;0 0 -60 60 0;0 0 0 -60 60;0 0 0 0 -60;0 0 0 0 0"
+              values="0 0 0 0 0;-30 15 0 0 0;-60 30 15 0 0;-30 -30 15  0 0;0 -15 -45 15 0;0 0 0 -30 0;0 0 0 0 -60;0 0 0 0 -30;0 0 0 0 0"
               dur="3s"
-              repeatCount="1"
+              repeatCount="indefinite"
             />
           </text>
         </symbol>
@@ -45,7 +45,7 @@
             ></animate>
           </use>
         </g>
-      </svg> -->
+      </svg>
     </div>
     <!-- <div class="poly"></div> -->
     <input type="button" value="abc" @click="click" />

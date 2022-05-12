@@ -38,7 +38,7 @@ export default {
   height: 100%;
   text-align: center;
   padding: 16px;
-  background-color: #ebba70;
+  background-color: #d69330d5;
 }
 .slide-image {
   width: 128px;
