@@ -29,6 +29,13 @@ const routes = [
         },
       },
       {
+        path: 'publish',
+        component: () => import('../../views/techies/publish/index.vue'),
+        meta: {
+          order: 4
+        }
+      },
+      {
         path: 'artical-detail',
         component: () => import('../../views/techies/artical-detail/index.vue'),
         meta: {

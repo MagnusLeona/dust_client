@@ -2,6 +2,7 @@
   <div class="main flex-center">
     <div @click="toFrontEnd" class="button flex-center">前端</div>
     <div @click="toBackEnd" class="button flex-center">后端</div>
+    <div @click="toPublish" class="button flex-center">发布</div>
   </div>
 </template>
 
@@ -14,6 +15,10 @@ export default {
 
     toBackEnd: function () {
       this.$router.push("/techies/back-end");
+    },
+
+    toPublish: function () {
+      this.$router.push("/techies/publish");
     },
   },
 };

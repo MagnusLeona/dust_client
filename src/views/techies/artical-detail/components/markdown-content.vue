@@ -7,14 +7,22 @@
 </template>
 
 <script>
-import mdcontent from "@/assets/md/1.md?raw";
-// lioshi
-import hljs from "highlight.js";
 import "highlight.js/scss/atom-one-dark.scss"; //样式文件
+import { marked } from "marked";
 import { ref } from "vue";
 export default {
-  setup() {
-    let htmlMd = ref(mdcontent);
+  props: {
+    articleContent: {
+      type: String,
+      required: true,
+      default: () => "",
+    },
+  },
+  setup(props) {
+    const content = marked(props.articleContent);
+    let htmlMd = ref("");
+    htmlMd.value = content;
+    console.log(content);
     return {
       htmlMd,
     };
@@ -51,7 +59,7 @@ export default {
     width: 70%;
     line-height: 150%;
     z-index: 20;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 50px;
     &-content {
       padding: 30px 50px;

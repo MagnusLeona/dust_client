@@ -205,8 +205,8 @@ export default {
 
   &-list {
     height: 100%;
-    padding: 0 5px;
-    overflow-y: auto;
+    padding: 0 10px;
+    overflow-y: overlay;
     display: block;
     &::-webkit-scrollbar {
       width: 4px;

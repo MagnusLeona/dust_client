@@ -3,7 +3,7 @@
     <div class="text">排序规则：{{ sortTypeName }}</div>
     <div class="icon-container">
       <svg-icon
-        icon="icon-sort"
+        icon="icon-sort-down-gray"
         class="icon"
         :class="desc ? 'desc' : 'asc'"
         @click="$emit('sortByDesc', !desc)"

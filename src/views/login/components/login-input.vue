@@ -3,6 +3,7 @@
     <div class="input-box">
       <input
         type="text"
+        autocomplete="off"
         v-model="UserId"
         placeholder="用户名"
         class="login-input"
@@ -13,6 +14,7 @@
     <div class="input-box">
       <input
         type="password"
+        autocomplete="off"
         v-model="Password"
         placeholder="密码"
         class="login-input"
@@ -44,7 +46,7 @@ export default {
 .input-container {
   width: 520px;
   height: 320px;
-  border: 1px solid #ee7f99;
+  // border: 1px solid #ee7f99;
   padding: 40px 100px 40px 100px;
   border-top-left-radius: 18px;
   border-bottom-right-radius: 18px;
@@ -52,9 +54,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-100%, -50%);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 1px #ee728f, 0 0 5px #eb89a0, 0 0 10px #ebaab9,
-    0 0 16px #e1b7c0, 0 0 25px #e1c7cd;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 1px rgba(100, 100, 100, 0.7),
+    0 0 10px rgba(100, 100, 100, 0.6), 0 0 20px rgba(100, 100, 100, 0.5),
+    0 0 40px rgba(100, 100, 100, 0.4), 0 0 80px rgba(100, 100, 100, 0.3);
 }
 
 .input-box {
@@ -106,7 +109,6 @@ export default {
 }
 
 .login-input:focus::-webkit-input-placeholder {
-  color: red;
 }
 
 .login-button {

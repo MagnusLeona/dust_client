@@ -84,13 +84,13 @@ module.exports = {
       template: path.join(__dirname, '../public/index.html'),
       filename: 'index.html',
       title: 'Dust',
-      favicon: path.join(__dirname, '../public/favicon.png'),
+      favicon: path.join(__dirname, '../public/favicon.ico'),
       inject: true
     }),
     new FriendlyErrorsPlugin({
       compilationSuccessInfo: {
         messages: [
-          `======###\tApplication Is Runing\t###=======`,
+          `>>>>>>>>>>\t||\tApplication Is Runing\t||\t<<<<<<<<<<`,
         ],
         clearConsole: true,
       },

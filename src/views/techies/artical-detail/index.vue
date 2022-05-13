@@ -1,38 +1,52 @@
 <template>
   <div class="artical">
-    <MarkDownTitle v-model:showTitle="showTitle" />
-    <MarkDownContent v-model:showTitle="showTitle" ref="content" />
+    <MarkDownTitle v-model:showTitle="showTitle" @back="back" />
+    <MarkDownContent
+      v-model:showTitle="showTitle"
+      :articleContent="articleContent"
+      v-if="articleContent"
+    />
+    <MarkDownBack />
+    <MarkDownFunction />
   </div>
 </template>
 
 <script>
 import MarkDownTitle from "./components/markdown-title.vue";
+import MarkDownBack from "./components/markdown-back.vue";
 import MarkDownContent from "./components/markdown-content.vue";
+import MarkDownFunction from "./components/markdown-function.vue";
 import { ref } from "vue";
+
+import { GetArticle, GetArticleDetail } from "@/requests";
+
 export default {
   components: {
+    MarkDownBack,
     MarkDownTitle,
     MarkDownContent,
+    MarkDownFunction,
   },
   setup() {
     let showTitle = ref(true);
+
+    let articleContent = ref("");
+
+    GetArticleDetail(1).then((res) => {
+      articleContent.value = res.content;
+    });
+
     return {
       showTitle,
+      articleContent,
     };
   },
   methods: {
-    addListener: function () {
-      window.addEventListener(
-        "scroll",
-        () => {
-          console.log(this.$refs.content.offsetTop);
-        },
-        true
-      );
+    back: function () {
+      this.$router.replace({
+        path: "/techies/main",
+      });
     },
-  },
-  mounted() {
-    // this.addListener();
   },
 };
 </script>
@@ -43,7 +57,8 @@ export default {
   padding: 0;
   margin: 0;
   position: relative;
-  overflow: overlay;
+  overflow-y: overlay;
+  overflow-x: hidden;
 
   background-image: repeating-linear-gradient(
       90deg,

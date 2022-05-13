@@ -10,7 +10,12 @@
 export default {
   methods: {
     toDetail: function () {
-      this.$router.push("/techies/artical-detail");
+      this.$router.replace({
+        path: "/techies/artical-detail",
+        query: {
+          from: "front-end",
+        },
+      });
     },
   },
 };
