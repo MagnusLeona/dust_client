@@ -31,6 +31,11 @@ export default {
         console.log("onKeyDown");
         this.inputValue += "\t";
         e.preventDefault();
+      } else if (e.keyCode === 83) {
+        if (e.ctrlKey) {
+          this.$emit("save", this.inputValue);
+          e.preventDefault();
+        }
       }
     },
   },

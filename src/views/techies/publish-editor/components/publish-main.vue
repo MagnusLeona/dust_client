@@ -32,6 +32,7 @@
           key="maininput"
           v-model:tempDoc="tempDoc"
           v-if="mode === 0"
+          @save="save"
           @updateInput="updateInput"
         />
         <PublishMainPreview
@@ -81,10 +82,14 @@ export default {
     },
 
     updateInput: function (value) {
-      // return
-      console.log("updateInput", value);
       this.tempDoc = value;
       this.forceUpdate = false;
+    },
+
+    save: function (value) {
+      this.tempDoc = value;
+      this.forceUpdate = true;
+      this.$dust.toast({ title: "暂存成功！" });
     },
   },
 };
