@@ -369,7 +369,6 @@ export default {
 
 .missionlist-enter-from {
   opacity: 0;
-  transform: scale(0);
 }
 .missionlist-enter-active {
   transition: all 0.5s ease;
@@ -388,13 +387,13 @@ export default {
 
 /* 下面的 .v-move 和 .v-leave-active 配合使用，能够实现列表后续的元素，渐渐地移动过来的效果 */
 .dust-list-enter-from {
-  transform: translate(0, 30px);
+  transform: translate(0, 100px);
 }
 .dust-list-enter-active {
   transition: all 0.5s ease;
 }
 .dust-list-leave-to {
-  transform: translate(0, 30px);
+  transform: translate(0, 100px);
 }
 .dust-list-move {
   transition: all 0.3s ease;

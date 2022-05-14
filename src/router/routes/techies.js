@@ -30,9 +30,16 @@ const routes = [
       },
       {
         path: 'publish',
-        component: () => import('../../views/techies/publish-editor/index.vue'),
+        component: () => import("../../views/techies/publish/index.vue"),
         meta: {
           order: 4
+        }
+      },
+      {
+        path: 'publish-editor',
+        component: () => import('../../views/techies/publish-editor/index.vue'),
+        meta: {
+          order: 5
         }
       },
       {

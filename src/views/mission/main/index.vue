@@ -275,7 +275,9 @@ export default {
     },
   },
   mounted() {
-    this.queryMissionList();
+    setTimeout(() => {
+      this.queryMissionList();
+    }, 500);
     this.addClickEventListener();
   },
   unmounted() {
