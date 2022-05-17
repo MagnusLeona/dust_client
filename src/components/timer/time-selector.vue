@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import Mask from "../mask/index.vue";
 import TimeSelectorDay from "./time-selector-day.vue";
 import TimeSelectorCommit from "./time-selector-commit.vue";
 
@@ -56,6 +57,7 @@ export default {
     };
   },
   components: {
+    Mask,
     TimeSelectorDay,
     TimeSelectorCommit,
   },
@@ -66,7 +68,6 @@ export default {
   },
   methods: {
     commit: function () {
-      console.log("@update-selected-date", this.tempDate);
       this.$emit("update:selected-date", this.tempDate);
       this.$emit("update:visible", false);
     },
@@ -89,9 +90,10 @@ export default {
   overflow: hidden;
   cursor: pointer;
   position: absolute;
-  left: 0;
+  // bottom: 0;
   top: 0;
-  transform: translate(0, -100%);
+  left: 0;
+  transform: translate(50%, -50%);
   z-index: 8848;
 }
 

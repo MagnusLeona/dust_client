@@ -30,10 +30,7 @@
             }-${deadlineTime.getDate()}  ${deadlineTime.getHours()}:${deadlineTime.getMinutes()}`"
             @click="timeSelectorVisible = true"
           />
-          <time-selector
-            v-model:visible="timeSelectorVisible"
-            v-model:selected-date="deadlineTime"
-          ></time-selector>
+
           <label
             for="deadlineTime"
             class="deadline-date-input-label flex-center"
@@ -54,8 +51,13 @@
       </div>
 
       <div class="commit flex-center">
-        <div class="commit-button flex-center" @click="commit">新 增</div>
+        <div class="commit-button flex-center" @click="commitAdd">新 增</div>
       </div>
+
+      <time-selector
+        v-model:visible="timeSelectorVisible"
+        v-model:selected-date="deadlineTime"
+      ></time-selector>
     </div>
   </transition>
 </template>
@@ -77,15 +79,15 @@ export default {
       required: false,
     },
   },
-  setup(props, ctx) {
-    const hideMissionAddBody = function () {
-      ctx.emit("update:showBody", false);
-    };
+  // setup(props, ctx) {
+  //   const hideMissionAddBody = function () {
+  //     ctx.emit("update:showBody", false);
+  //   };
 
-    return {
-      hideMissionAddBody,
-    };
-  },
+  //   return {
+  //     hideMissionAddBody,
+  //   };
+  // },
   components: {
     CommonInput,
     TimeSelector,
@@ -99,7 +101,7 @@ export default {
     };
   },
   methods: {
-    commit: function () {
+    commitAdd: function () {
       if (!this.title || !this.content) {
         this.$dust.toast({ title: "请输入完整信息" });
         return;

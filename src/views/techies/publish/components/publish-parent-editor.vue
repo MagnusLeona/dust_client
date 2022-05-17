@@ -1,36 +1,40 @@
 <template>
   <div class="publish-editor">
-    <div v-show="mode === 2" class="publish-editor-guide">
-      <div class="guide-text">
-        <h1>欢迎使用Dust在线Markdown编辑器</h1>
-        <h2 class="publish-editor-guide-title">以下为使用指南：</h2>
-        <h3>
-          1.此编辑器仅支持使用markdown标准语法。
-          --不了解markdown语法？点此开始教程~
-        </h3>
-        <h3>
-          2.编辑器支持markdown语法输入，以及markdown预览功能，可以灵活切换。
-        </h3>
-        <h3>
-          3.编辑器支持暂存功能，请您在输入长篇内容的时候，时刻注意保存临时数据，避免因某些不可靠因素丢失数据哦~
-        </h3>
-        <h3>
-          4.完整的文章需要标题和一段简短的介绍哦，可以在编辑器页面右下角菜单中找到输入标题的入口~
-        </h3>
-      </div>
+    <transition name="editor">
+      <div v-show="mode === 2" class="publish-editor-guide">
+        <div class="guide-text">
+          <h1>欢迎使用Dust在线Markdown编辑器</h1>
+          <h2 class="publish-editor-guide-title">以下为使用指南：</h2>
+          <h3>
+            1.此编辑器仅支持使用markdown标准语法。
+            --不了解markdown语法？点此开始教程~
+          </h3>
+          <h3>
+            2.编辑器支持markdown语法输入，以及markdown预览功能，可以灵活切换。
+          </h3>
+          <h3>
+            3.编辑器支持暂存功能，请您在输入长篇内容的时候，时刻注意保存临时数据，避免因某些不可靠因素丢失数据哦~
+          </h3>
+          <h3>
+            4.完整的文章需要标题和一段简短的介绍哦，可以在编辑器页面右下角菜单中找到输入标题的入口~
+          </h3>
+        </div>
 
-      <div class="button-box">
-        <svg
-          height="100%"
-          width="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          class="svg"
-        >
-          <rect class="outline" height="100%" width="100%" />
-        </svg>
-        <div class="button-box-text flex-center">开始编辑</div>
+        <div class="button-box">
+          <svg
+            height="100%"
+            width="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            class="svg"
+          >
+            <rect class="outline" height="100%" width="100%" />
+          </svg>
+          <div class="button-box-text flex-center" @click="$emit('toEdit')">
+            开始编辑
+          </div>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -130,5 +134,15 @@ export default {
 }
 
 @keyframes circle {
+}
+
+.editor-enter-from,
+.editor-leave-to {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.editor-enter-active,
+.editor-leave-active {
+  transition: all ease 0.5s;
 }
 </style>

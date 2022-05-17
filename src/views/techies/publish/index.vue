@@ -1,6 +1,10 @@
 <template>
   <div class="publish">
-    <PublishParent v-model:mode="mode" />
+    <PublishParent
+      v-model:mode="mode"
+      @routeToEdit="toEdit"
+      @routeToUpload="toUpload"
+    />
   </div>
 </template>
 
@@ -22,6 +26,19 @@ export default {
       mode,
       changeMode,
     };
+  },
+  methods: {
+    toEdit: function () {
+      this.$router.push({
+        path: "/techies/publish-editor",
+      });
+    },
+
+    toUpload: function () {
+      this.$router.push({
+        path: "/techies/publish-upload",
+      });
+    },
   },
 };
 </script>

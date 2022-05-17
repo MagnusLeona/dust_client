@@ -3,8 +3,8 @@
     class="parent"
     :class="mode === 1 ? 'editor' : mode === 2 ? 'upload' : ''"
   >
-    <PublishUpload :mode="mode" />
-    <PublishEditor :mode="mode" />
+    <PublishUpload :mode="mode" @toUpload="$emit('routeToUpload')" />
+    <PublishEditor :mode="mode" @toEdit="$emit('routeToEdit')" />
     <PublishButton :mode="mode" @changeMode="changeMode" />
   </div>
 </template>

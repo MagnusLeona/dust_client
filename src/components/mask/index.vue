@@ -37,7 +37,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   background-color: rgba(240, 240, 240, 0.9);
 }
 

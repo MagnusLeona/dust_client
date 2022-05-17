@@ -43,6 +43,13 @@ const routes = [
         }
       },
       {
+        path: 'publish-upload',
+        component: () => import('../../views/techies/publish-upload/index.vue'),
+        meta: {
+          order: 5
+        }
+      },
+      {
         path: 'artical-detail',
         component: () => import('../../views/techies/artical-detail/index.vue'),
         meta: {

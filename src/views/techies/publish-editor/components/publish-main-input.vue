@@ -49,7 +49,8 @@ export default {
     forceUpdate(newVal) {
       if (newVal) {
         // 更新数据
-        this.$emit("updateInput", this.inputValue);
+        console.log("detect forceUpdate");
+        this.$emit("forceCommit", this.inputValue);
       }
     },
   },

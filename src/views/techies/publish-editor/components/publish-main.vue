@@ -8,10 +8,10 @@
           @mouseover="showText = true"
           @mouseleave="showText = false"
         >
+          <svg-icon icon="icon-edit-gray" class="icon"></svg-icon>
           <transition name="edit">
             <div class="mode" v-show="showText">编辑模式</div>
           </transition>
-          <svg-icon icon="icon-edit-gray" class="icon"></svg-icon>
         </div>
         <div
           class="input-header-box"
@@ -19,10 +19,10 @@
           @mouseover="showText = true"
           @mouseleave="showText = false"
         >
+          <svg-icon icon="icon-preview-gray" class="icon"></svg-icon>
           <transition name="edit">
             <div class="mode" v-show="showText">预览模式</div>
           </transition>
-          <svg-icon icon="icon-preview-gray" class="icon"></svg-icon>
         </div>
       </transition>
     </div>
@@ -32,8 +32,10 @@
           key="maininput"
           v-model:tempDoc="tempDoc"
           v-if="mode === 0"
+          :forceUpdate="forceUpdate"
           @save="save"
           @updateInput="updateInput"
+          @forceCommit="forceCommit"
         />
         <PublishMainPreview
           key="mainpreview"
@@ -60,35 +62,39 @@ export default {
       type: String,
       required: true,
     },
+    forceUpdate: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: { PublishMainInput, PublishMainPreview },
   setup() {
     let tempDoc = ref("");
     let mode = ref(0);
     let showText = ref(false);
-    let forceUpdate = ref(false);
 
     return {
       tempDoc,
       mode,
       showText,
-      forceUpdate,
     };
   },
   methods: {
     changeMode: function () {
-      this.forceUpdate = true;
       this.mode = this.mode === 0 ? 1 : 0;
     },
 
     updateInput: function (value) {
       this.tempDoc = value;
-      this.forceUpdate = false;
+      this.$emit("update:inputDoc", value);
+    },
+
+    forceCommit: function (value) {
+      this.$emit("forceCommit", value);
     },
 
     save: function (value) {
       this.tempDoc = value;
-      this.forceUpdate = true;
       this.$dust.toast({ title: "暂存成功！" });
     },
   },
@@ -104,14 +110,14 @@ export default {
 
   &-header {
     position: absolute;
-    top: 60px;
-    left: 0;
+    top: 50px;
+    left: 20px;
     display: block;
     width: 200px;
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     &-box {
       display: flex;
@@ -120,6 +126,7 @@ export default {
       .mode {
         padding: 10px 20px;
         border-radius: 4px;
+        margin-left: 10px;
         background-color: rgba(200, 200, 200, 1);
       }
     }
