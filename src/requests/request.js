@@ -4,7 +4,6 @@ import { toRefs, unref } from "vue"
 
 const resolveResponse = function (response) {
   let { data, status } = response;
-  console.log(response)
 
   if (status !== 200) {
     throw new Error('网络异常！');
@@ -15,18 +14,6 @@ const resolveResponse = function (response) {
 
   if (code === 200) {
     return body;
-  } else if (code === 700) {
-    // 登录问题
-    let curr = { ...router.currentRoute };
-    console.log("currentRouter",)
-    console.log(1)
-    router.replace({
-      path: "/login",
-      query: {
-        curr: encodeURIComponent(curr._value.fullPath)
-      }
-    })
-    return;
   } else {
     //自定义抛错
     let e = {

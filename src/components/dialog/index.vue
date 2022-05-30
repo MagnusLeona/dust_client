@@ -39,7 +39,6 @@ export default {
       // 注册所有的监听器
       const alertListener = ({ detail }) => {
         alertVisible.value = true;
-        console.log(detail, alertInfo);
         alertInfo.data = { ...detail };
       };
       const confirmListener = ({ detail }) => {
@@ -47,11 +46,20 @@ export default {
         confirmInfo.data = { ...detail };
       };
       const toastListener = ({ detail }) => {
-        toastVisible.value = true;
-        toastInfo.data = { ...detail };
-        toastTimeOut.value = setTimeout(() => {
-          toastVisible.value = false;
-        }, 3000);
+        if (toastVisible.value === true) {
+          // 如果当前已经为true了，则直接替换
+          window.clearTimeout(toastTimeOut.value);
+          toastInfo.data = { ...detail };
+          toastTimeOut.value = setTimeout(() => {
+            toastVisible.value = false;
+          }, 3000);
+        } else {
+          toastVisible.value = true;
+          toastInfo.data = { ...detail };
+          toastTimeOut.value = setTimeout(() => {
+            toastVisible.value = false;
+          }, 3000);
+        }
       };
       window.addEventListener("alert", alertListener);
       window.addEventListener("confirm", confirmListener);
@@ -68,7 +76,6 @@ export default {
     const alertBtnClick = function (value) {
       // 点击确认按钮之后，关闭弹框，并且把这个值传递给回调方法
       alertVisible.value = false;
-      console.log("alertBtnClick", value);
       dustDispatch({ name: "alert-call-back", params: { operation: value } });
     };
 

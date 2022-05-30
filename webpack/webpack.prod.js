@@ -10,7 +10,8 @@ module.exports = {
   output: {
     filename: 'dust.js',
     path: resolve(__dirname, "../dist"),
-    chunkFilename: "js/[name].bundle.js"
+    chunkFilename: "js/[name].bundle.js",
+    clean: true
   },
   module: {
     rules: [

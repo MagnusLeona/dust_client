@@ -6,7 +6,10 @@ module.exports = {
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/vue3-essential"
+    "plugin:vue/vue3-essential",
+    'plugin:vue/essential',
+    '@vue/standard',
+    'prettier'
   ],
   "parserOptions": {
     "parser": 'babel-eslint',

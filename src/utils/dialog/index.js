@@ -1,5 +1,4 @@
 export const alert = function (params) {
-  console.log("alert function")
   return new Promise((resolve) => {
     window.addEventListener("alert-call-back", ({ detail }) => {
       resolve(detail.operation);
@@ -19,13 +18,22 @@ export const confirm = function (params) {
   })
 }
 
+export const goLogin = function (params) {
+  return new Promise((resolve) => {
+    window.addEventListener("login-call-back", ({ detail }) => {
+      resolve(detail.status)
+    })
+    let event = new CustomEvent("login", { detail: { ...params } });
+    window.dispatchEvent(event);
+  })
+}
+
 export const toast = function (params) {
   let event = new CustomEvent("toast", { detail: { ...params } });
   window.dispatchEvent(event);
 }
 
 export const dustDispatch = function ({ name, params }) {
-  console.log(name, params)
   let event = new CustomEvent(name, { detail: { ...params } })
   window.dispatchEvent(event);
 }

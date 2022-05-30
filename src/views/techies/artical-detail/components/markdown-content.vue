@@ -22,7 +22,6 @@ export default {
     const content = marked(props.articleContent);
     let htmlMd = ref("");
     htmlMd.value = content;
-    console.log(content);
     return {
       htmlMd,
     };

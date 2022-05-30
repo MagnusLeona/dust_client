@@ -3,7 +3,7 @@
     <transition name="upload">
       <div v-show="mode === 1" class="publish-upload-body">
         <div class="guide-text">
-          <h1>感谢上传您的作品</h1>
+          <h1>欢迎上传您的作品</h1>
           <h2 class="publish-upload-guide-title">
             上传前，请先仔细阅读使用指南：
           </h2>

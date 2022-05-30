@@ -1,24 +1,41 @@
 <template>
   <div class="main flex-center">
-    <div @click="toFrontEnd" class="button flex-center">前端</div>
-    <div @click="toBackEnd" class="button flex-center">后端</div>
+    <div @click="toList(1)" class="button flex-center">前端</div>
+    <div @click="toList(2)" class="button flex-center">后端</div>
+    <div @click="toList(3)" class="button flex-center">运维</div>
+    <div @click="toList(4)" class="button flex-center">架构</div>
+    <div @click="toList(5)" class="button flex-center">其他</div>
     <div @click="toPublish" class="button flex-center">发布</div>
+    <div></div>
+    <MainBack @back="back" />
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    toFrontEnd: function () {
-      this.$router.push("/techies/front-end");
-    },
+import MainBack from "./components/main-back.vue";
 
-    toBackEnd: function () {
-      this.$router.push("/techies/back-end");
+export default {
+  components: {
+    MainBack,
+  },
+  methods: {
+    toList: function (type) {
+      this.$router.push({
+        path: "/techies/article-list",
+        query: {
+          type: type,
+        },
+      });
     },
 
     toPublish: function () {
       this.$router.push("/techies/publish");
+    },
+
+    back: function () {
+      this.$router.replace({
+        path: "/main",
+      });
     },
   },
 };
@@ -29,6 +46,8 @@ export default {
   width: 100%;
   height: 100vh;
   justify-content: space-around;
+  background-color: white;
+  flex-wrap: wrap;
 
   .button {
     width: 200px;
