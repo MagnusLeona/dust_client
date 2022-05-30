@@ -11,16 +11,12 @@
       leave-active-class="transition-active"
     >
       <div class="mission-add-icon-functions" v-show="showMore">
-        <svg-icon
-          icon="icon-preview-gray"
-          class="icon"
-          @click="$emit('showDetailInput')"
-        ></svg-icon>
+        <svg-icon icon="icon-preview-gray" class="icon"></svg-icon>
         <svg-icon
           icon="icon-commit-gray
           "
           class="icon"
-          @click="$emit('commit')"
+          @click="$emit('beforeCommit')"
         ></svg-icon>
       </div>
     </transition>

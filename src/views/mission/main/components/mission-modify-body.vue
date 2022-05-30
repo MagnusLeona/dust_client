@@ -126,7 +126,6 @@ export default {
       if (newVal) {
         this.title = this.modifyingMission.name;
         this.content = this.modifyingMission.content;
-        console.log(this.modifyingMission);
         this.deadlineTime = new Date(this.modifyingMission.deadLineTime);
       } else {
         this.title = "";

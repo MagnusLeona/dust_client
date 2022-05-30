@@ -19,19 +19,19 @@ export default {
         {
           title: "Techies",
           content: "Let techies design your output !",
-          url: "/techies",
+          url: "/techies/main",
           component: "FunctionTechies",
         },
         {
           title: "Todos",
           content: "To contribute greater efficiency",
-          url: "/mission",
+          url: "/mission/main",
           component: "FunctionTodos",
         },
         {
           title: "Stories",
           content: "How about share your experienced thought ?",
-          url: "/stories",
+          url: "/stories/main",
           component: "FunctionTellers",
         },
         {

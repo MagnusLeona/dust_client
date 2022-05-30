@@ -17,6 +17,7 @@ module.exports = {
     chunkFilename: "js/[name].bundle.js",
     clean: true,
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {

@@ -30,19 +30,12 @@
       <transition name="input-preview" mode="out-in">
         <PublishMainInput
           key="maininput"
-          v-model:tempDoc="tempDoc"
+          :inputDoc="inputDoc"
           v-if="mode === 0"
-          :forceUpdate="forceUpdate"
+          @updateInput="updateInput"
           @save="save"
-          @updateInput="updateInput"
-          @forceCommit="forceCommit"
         />
-        <PublishMainPreview
-          key="mainpreview"
-          v-model:tempDoc="tempDoc"
-          @updateInput="updateInput"
-          v-else
-        />
+        <PublishMainPreview key="mainpreview" :inputDoc="inputDoc" v-else />
       </transition>
     </div>
   </div>
@@ -50,20 +43,14 @@
 
 <script>
 import { ref } from "vue";
-import svgIcon from "../../../../components/svg/svg-icon.vue";
 
 import PublishMainInput from "./publish-main-input.vue";
 import PublishMainPreview from "./publish-main-preview.vue";
 
 export default {
-  components: { svgIcon },
   props: {
     inputDoc: {
       type: String,
-      required: true,
-    },
-    forceUpdate: {
-      type: Boolean,
       required: true,
     },
   },
@@ -85,16 +72,11 @@ export default {
     },
 
     updateInput: function (value) {
-      this.tempDoc = value;
       this.$emit("update:inputDoc", value);
     },
 
-    forceCommit: function (value) {
-      this.$emit("forceCommit", value);
-    },
-
-    save: function (value) {
-      this.tempDoc = value;
+    save: function () {
+      this.$emit("saveTemp", value);
       this.$dust.toast({ title: "暂存成功！" });
     },
   },

@@ -6,8 +6,15 @@
       :articleContent="articleContent"
       v-if="articleContent"
     />
-    <MarkDownBack />
-    <MarkDownFunction />
+    <MarkDownBack @back="back" />
+    <MarkDownFunction
+      :isFan="isFan"
+      :isMarked="isMarked"
+      @fancy="tryFancy"
+      @cancelFan="cancelFan"
+      @mark="tryMark"
+      @cancelMark="cancelMark"
+    />
   </div>
 </template>
 
@@ -16,36 +23,88 @@ import MarkDownTitle from "./components/markdown-title.vue";
 import MarkDownBack from "./components/markdown-back.vue";
 import MarkDownContent from "./components/markdown-content.vue";
 import MarkDownFunction from "./components/markdown-function.vue";
-import { ref } from "vue";
+import { reactive, ref, toRefs } from "vue";
 
-import { GetArticle, GetArticleDetail } from "@/requests";
+import {
+  GetArticle,
+  GetArticleDetail,
+  FancyArticle,
+  CancelFancyArticle,
+  MarkArticle,
+  CancelMarkArticle,
+} from "@/requests";
 
 export default {
+  props: {
+    articleId: {
+      type: Number,
+    },
+  },
   components: {
     MarkDownBack,
     MarkDownTitle,
     MarkDownContent,
     MarkDownFunction,
   },
-  setup() {
+  setup(props) {
     let showTitle = ref(true);
+    let refProps = toRefs(props);
+    let isFan = ref(false);
+    let isMarked = ref(false);
 
     let articleContent = ref("");
+    let articleDetail = reactive({ data: {} });
 
-    GetArticleDetail(1).then((res) => {
-      articleContent.value = res.content;
+    GetArticleDetail(refProps.articleId.value).then((res) => {
+      console.log(res);
+      let { article, fan, marked } = res;
+      articleContent.value = article.content;
+      articleDetail.data = article;
+      isFan.value = fan ? true : false;
+      isMarked.value = marked ? true : false;
     });
 
     return {
+      isFan,
+      isMarked,
       showTitle,
+      articleDetail,
       articleContent,
     };
   },
   methods: {
-    back: function () {
-      this.$router.replace({
-        path: "/techies/main",
+    tryFancy: function () {
+      let { id } = this.articleDetail.data;
+      FancyArticle(id).then((res) => {
+        this.isFan = true;
       });
+    },
+
+    tryMark: function () {
+      let { id } = this.articleDetail.data;
+      MarkArticle(id).then((res) => {
+        this.isMarked = true;
+      });
+    },
+
+    cancelFan: function () {
+      let { id } = this.articleDetail.data;
+      console.log("Cancelling", id);
+
+      CancelFancyArticle(id).then((res) => {
+        this.isFan = false;
+      });
+    },
+
+    cancelMark: function () {
+      let { id } = this.articleDetail.data;
+      CancelMarkArticle(id).then((res) => {
+        this.isMarked = false;
+      });
+    },
+
+    back: function () {
+      this.$router.go(-1);
     },
   },
 };

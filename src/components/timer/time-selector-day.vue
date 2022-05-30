@@ -130,7 +130,6 @@ export default {
       let lastMonthDays = [];
       if (day > 1) {
         let lastDate = new Date(year, month, 0).getDate();
-        console.log(lastDate);
         for (let i = day; i > 1; i--) {
           lastMonthDays.push({
             date: new Date(year, month - 1, lastDate - i + 1),

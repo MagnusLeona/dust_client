@@ -140,8 +140,6 @@ export default {
 
     deleteMission: function (index) {
       // 删除任务
-      console.log("deleting mission");
-      console.log(this.missionList[index].id);
       DeleteMissionForUser({ missionId: this.missionList[index].id }).then(
         (res) => {
           // 成功，则删掉这一个数据
@@ -192,8 +190,6 @@ export default {
     },
 
     sort: function () {
-      console.log("sorting");
-      console.log(this.sortType);
       switch (this.sortType) {
         case 0:
           this.missionList.sort((a, b) => {
@@ -208,7 +204,6 @@ export default {
           break;
         case 1:
           this.missionList.sort((a, b) => {
-            console.log(a.status, b.status);
             if (a.status > b.status) {
               return this.desc ? -1 : 1;
             } else if (a.status < b.status) {

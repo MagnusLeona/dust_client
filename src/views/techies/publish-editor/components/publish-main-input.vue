@@ -2,8 +2,9 @@
   <div class="input-body-text">
     <textarea
       class="text-area"
+      :value="inputDoc"
       @keydown="onkeydown"
-      v-model="inputValue"
+      @change="inputValue"
     ></textarea>
   </div>
 </template>
@@ -12,45 +13,24 @@
 export default {
   name: "PublishMainInput",
   props: {
-    tempDoc: {
+    inputDoc: {
       type: String,
     },
-    forceUpdate: {
-      type: Boolean,
-    },
-  },
-  data() {
-    return {
-      inputValue: "",
-    };
   },
   methods: {
+    inputValue: function (e) {
+      this.$emit("updateInput", e.target.value);
+    },
+
     onkeydown: function (e) {
-      console.log(e);
       if (e.keyCode === 9) {
-        console.log("onKeyDown");
         this.inputValue += "\t";
         e.preventDefault();
       } else if (e.keyCode === 83) {
         if (e.ctrlKey) {
-          this.$emit("save", this.inputValue);
+          this.$emit("save");
           e.preventDefault();
         }
-      }
-    },
-  },
-  created() {
-    this.inputValue = this.tempDoc;
-  },
-  beforeUnmount() {
-    this.$emit("updateInput", this.inputValue);
-  },
-  watch: {
-    forceUpdate(newVal) {
-      if (newVal) {
-        // 更新数据
-        console.log("detect forceUpdate");
-        this.$emit("forceCommit", this.inputValue);
       }
     },
   },
@@ -65,12 +45,13 @@ export default {
     width: 100%;
     height: 100%;
     border: 0;
-    color: rgb(200, 200, 200, 1);
-    background-color: rgba(255, 255, 255, 0.1);
+    color: rgb(0, 0, 0, 1);
+    background-color: rgba(80, 109, 118, 0.2);
     border-radius: 7px;
     padding: 20px;
     font-size: 15px;
     transition: all ease 0.3s;
+    resize: none;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
       "Lucida Sans", Arial, sans-serif;
 
@@ -81,17 +62,17 @@ export default {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(197, 186, 214, 0.5);
+      background-color: rgba(80, 109, 118, 0.5);
       border-radius: 2px;
     }
 
     &:focus {
       border: 0;
       outline: none;
-      box-shadow: 0 0 5px rgba(180, 180, 180, 0.5),
-        0 0 10px rgba(180, 180, 180, 0.4), 0 0 15px rgba(180, 180, 180, 0.3),
-        0 0 25px rgba(180, 180, 180, 0.2), 0 0 30px rgba(180, 180, 180, 0.1),
-        0 0 40px rgba(180, 180, 180, 0.05);
+      box-shadow: 0 0 5px rgba(80, 109, 118, 0.5),
+        0 0 10px rgba(80, 109, 118, 0.4), 0 0 15px rgba(180, 180, 180, 0.3),
+        0 0 25px rgba(80, 109, 118, 0.2), 0 0 30px rgba(80, 109, 118, 0.1),
+        0 0 40px rgba(80, 109, 118, 0.1);
     }
   }
 }

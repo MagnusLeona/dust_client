@@ -59,6 +59,7 @@ export default {
   margin: 24px 0;
   color: #fff;
   height: 300px;
+  cursor: pointer;
 }
 .slide-text {
   font-size: 18px;

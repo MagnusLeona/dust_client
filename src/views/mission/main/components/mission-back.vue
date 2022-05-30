@@ -48,13 +48,13 @@ export default {
 
 @keyframes run-in-circle {
   0% {
-    transform: translateX(0);
+    transform: scale(1);
   }
   50% {
-    transform: translateX(-20px);
+    transform: scale(1.2);
   }
   100% {
-    transform: translateX(0);
+    transform: scale(1);
   }
 }
 </style>

@@ -4,7 +4,7 @@
       <input
         type="text"
         autocomplete="off"
-        v-model="UserId"
+        v-model="userName"
         placeholder="用户名"
         class="login-input"
         id="user-input"
@@ -15,7 +15,7 @@
       <input
         type="password"
         autocomplete="off"
-        v-model="Password"
+        v-model="password"
         placeholder="密码"
         class="login-input"
       />
@@ -24,7 +24,7 @@
 
     <div
       class="login-button flex-center"
-      @click="$emit('commitLogin', Number(UserId), Password)"
+      @click="$emit('commitLogin', { name: userName, password: password })"
     >
       登录
     </div>
@@ -35,8 +35,8 @@
 export default {
   data() {
     return {
-      UserId: "",
-      Passsword: "",
+      userName: "",
+      password: "",
     };
   },
 };
@@ -106,9 +106,6 @@ export default {
 
 .login-input:focus + label {
   transform: translateX(-80px);
-}
-
-.login-input:focus::-webkit-input-placeholder {
 }
 
 .login-button {

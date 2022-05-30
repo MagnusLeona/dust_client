@@ -19,14 +19,32 @@
         <svg-icon
           icon="icon-praise"
           class="icon"
-          @click="$emit('sortBy')"
+          v-if="!isFan"
+          @click="$emit('fancy')"
+        ></svg-icon>
+        <svg-icon
+          icon="icon-fanned"
+          class="icon"
+          v-else
+          @click="$emit('cancelFan')"
         ></svg-icon>
         <svg-icon
           icon="icon-discuss"
           class="icon"
           @click="$emit('toTotal')"
         ></svg-icon>
-        <svg-icon icon="icon-star" class="icon" @click=""></svg-icon>
+        <svg-icon
+          icon="icon-star"
+          class="icon"
+          @click="$emit('mark')"
+          v-if="!isMarked"
+        ></svg-icon>
+        <svg-icon
+          icon="icon-marked"
+          class="icon"
+          @click="$emit('cancelMark')"
+          v-else
+        ></svg-icon>
       </div>
     </transition>
 
@@ -40,7 +58,16 @@
 import { ref } from "vue";
 
 export default {
-  props: {},
+  props: {
+    isMarked: {
+      type: Boolean,
+      default: () => false,
+    },
+    isFan: {
+      type: Boolean,
+      default: () => false,
+    },
+  },
   setup(props, ctx) {
     let showMore = ref(false);
 
@@ -121,7 +148,7 @@ export default {
   transition: all ease 0.2s;
 
   &:hover {
-    animation-name: run-in-circle;
+    animation-name: scale-up-down;
     animation-duration: 3s;
     animation-iteration-count: infinite;
   }

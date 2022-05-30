@@ -18,20 +18,14 @@ import SwiperCore, { EffectCube, Pagination } from "swiper";
 SwiperCore.use([EffectCube, Pagination]);
 
 export default {
-  mounted() {
-    console.log(this.$router);
-  },
+  mounted() {},
   components: {
     Swiper,
     SwiperSlide,
   },
   setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
+    const onSwiper = (swiper) => {};
+    const onSlideChange = () => {};
     return {
       onSwiper,
       onSlideChange,

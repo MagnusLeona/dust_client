@@ -1,55 +1,8 @@
 <template>
   <div class="demo">
-    <svg-icon icon="icon-going-yellow"></svg-icon>
-    {{ visible }}
-    <div>
-      <svg width="900" height="200" version="1.1">
-        <line
-          id="line"
-          x1="10"
-          x2="600"
-          y1="110"
-          y2="110"
-          stroke="orange"
-          fill="transparent"
-          stroke-width="8"
-          class="line"
-        />
-      </svg>
-      <svg width="900" height="400" xmlns="http://www.w3.org/2000/svg">
-        <symbol id="text">
-          <text x="10%" y="70%" class="text">
-            Todos
-            <animate
-              attributeName="dy"
-              values="0 0 0 0 0;-30 15 0 0 0;-60 30 15 0 0;-30 -30 15  0 0;0 -15 -45 15 0;0 0 0 -30 0;0 0 0 0 -60;0 0 0 0 -30;0 0 0 0 0"
-              dur="3s"
-              repeatCount="indefinite"
-            />
-          </text>
-        </symbol>
+    <HomeButton />
 
-        <g>
-          <use xlink:href="#text" class="t-text">
-            <set
-              attributeName="dy"
-              from="20%;0;0;0;0"
-              to="0;0;0;0;0"
-              dur="3s"
-              begin="1s"
-            ></set>
-            <animate
-              attributeName="dy"
-              values="0;20%;0;0;0"
-              dur="10s"
-            ></animate>
-          </use>
-        </g>
-      </svg>
-    </div>
-    <!-- <div class="poly"></div> -->
-    <input type="button" value="abc" @click="click" />
-    <!-- <Alert :visible="true" :info="{ data: {} }" /> -->
+    <div class="clip-box"></div>
 
     <div class="text-with-border">
       <svg
@@ -62,21 +15,6 @@
       </svg>
       <div class="svg-text flex-center">确认</div>
     </div>
-
-    <div class="italic-d">D</div>
-
-    <div>
-      <div>
-        <!-- 设置一个添加按钮 -->
-        <button v-on:click="add">Add</button>
-        <!-- 设置一个删除按钮 -->
-        <button v-on:click="remove">Remove</button>
-        <button v-on:click="shuffle">Shuffle</button>
-
-        <!-- 使用tag指定包括的元素为P标签，命名为list  -->
-        <comp :list="items" />
-      </div>
-    </div>
   </div>
 </template>
 
@@ -86,6 +24,11 @@ import comp from "./compo.vue";
 import TimeSelector from "@/components/timer/time-selector.vue";
 import Alert from "@/components/dialog/components/alert.vue";
 import Toast from "@/components/dialog/components/toast.vue";
+import HomeButton from "@/components/input/home-button.vue";
+
+import { CheckLoginStatus } from "@/requests/api/user";
+import { goLogin } from "@/utils/dialog";
+import { loginProceed } from "@/utils/utils";
 
 export default {
   components: {
@@ -93,6 +36,7 @@ export default {
     TimeSelector,
     Alert,
     Toast,
+    HomeButton,
   },
   setup(props, ctx) {
     let missionList = reactive([]);
@@ -134,14 +78,19 @@ export default {
       // 随机删除列表中的其中一个数据
       this.items.splice(this.randomIndex(), 1);
     },
+
+    loginCheck: function () {
+      //
+      loginProceed().then((res) => {});
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 .demo {
   padding: 50px;
-  border: 1px solid red;
   position: relative;
+  background-color: white;
 }
 
 .con {
@@ -295,6 +244,7 @@ export default {
 }
 
 .text-with-border {
+  margin-top: 100px;
   width: 250px;
   height: 50px;
   position: relative;
@@ -352,22 +302,24 @@ export default {
   width: 100%;
   margin-right: 10px;
 }
-/*设置列表transition-group的name为list的入场以及离场动画效果*/
-// .list-enter-active,
-// .list-leave-active {
-//   transition: all 1s;
-// }
-// .list-enter, .list-leave-to
-//             /* .list-leave-active for below version 2.1.8 */ {
-//   opacity: 0;
-//   transform: translateY(30px);
-// }
 
-/* 下面的 .v-move 和 .v-leave-active 配合使用，能够实现列表后续的元素，渐渐地移动过来的效果 */
-// .list-move {
-//   transition: all 0.6s ease;
-// }
-// .list-leave-active {
-//   position: absolute;
-// }
+.clip-box {
+  width: 300px;
+  height: 600px;
+  margin-top: 20px;
+  background-color: #efeac5;
+  clip-path: polygon(
+    0 2%,
+    8% 1.3%,
+    15% 0,
+    24% 1.5%,
+    36% 0.4%,
+    55% 0.2%,
+    69% 1%,
+    85% 0,
+    100% 1.4%,
+    100% 100%,
+    0 100%
+  );
+}
 </style>

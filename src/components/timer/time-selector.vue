@@ -44,7 +44,6 @@ export default {
     year.value = props.selectedDate.getFullYear();
     month.value = props.selectedDate.getMonth();
     day.value = props.selectedDate.getDate();
-    console.log("day", day);
     hour.value = props.selectedDate.getHours();
     minute.value = props.selectedDate.getMinutes();
 
