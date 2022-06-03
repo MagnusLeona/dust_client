@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  width: 100%;
+  width: 70%;
   height: 60px;
   margin: 50px 0 20px 0;
 

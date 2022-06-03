@@ -2,10 +2,21 @@
   <div class="card flex-center">
     <div class="card-inner">
       <div class="card-inner-left">
-        <UserCardLeft v-model:selected="selected" :user="user" />
+        <UserCardLeft
+          v-model:selected="selected"
+          :user="user"
+          :loaded="loaded"
+        />
       </div>
       <div class="card-inner-mid">
-        <UserCardMid :selected="selected" :articles="articles" />
+        <UserCardMid
+          :selected="selected"
+          :articles="articles"
+          :marked="marked"
+          :loaded="loaded"
+          @toUpload="$emit('toUpload')"
+          @toTechies="$emit('toTechies')"
+        />
       </div>
       <div class="card-inner-right">
         <UserCardRight />
@@ -26,6 +37,12 @@ export default {
     },
     user: {
       type: Object,
+    },
+    marked: {
+      type: Array,
+    },
+    loaded: {
+      type: Boolean,
     },
   },
   components: {

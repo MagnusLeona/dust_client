@@ -1,8 +1,6 @@
 <template>
   <div class="slide-inner flex-center">
-    <div class="slide-title" @click="$emit('router')">
-      <svg></svg>
-    </div>
+    <div class="slide-title" @click="$emit('router')">Whats more ?</div>
     <div class="slide-text">
       {{ cardConfig.content }}
     </div>

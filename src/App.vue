@@ -11,7 +11,13 @@
       </router-view>
     </div>
 
-    <Navigator v-model:home="home" />
+    <Navigator
+      v-model:home="home"
+      @toLogin="toLogin"
+      @toUser="toUser"
+      @toTechies="toTechies"
+      @toMain="toMain"
+    />
     <Dialog />
     <Login />
   </div>
@@ -22,6 +28,8 @@ import HomeButton from "@/components/input/home-button";
 import Dialog from "@/components/dialog";
 import Login from "@/components/login";
 import Navigator from "@/components/navigator";
+
+import { loginProceed } from "@/utils/utils";
 
 export default {
   name: "App",
@@ -39,6 +47,43 @@ export default {
     };
   },
   methods: {
+    toLogin: function () {
+      this.$router.replace({
+        path: "/login",
+      });
+      this.home = false;
+    },
+
+    toUser: function () {
+      loginProceed()
+        .then((res) => {
+          if (res) {
+            this.$router.replace({
+              path: "/user",
+            });
+          } else {
+            this.$dust.alert({ content: "登录失败，请重新登录" });
+          }
+        })
+        .finally(() => {
+          this.home = false;
+        });
+    },
+
+    toMain: function () {
+      this.$router.replace({
+        path: "/main",
+      });
+      this.home = false;
+    },
+
+    toTechies: function () {
+      this.$router.push({
+        path: "/techies",
+      });
+      this.home = false;
+    },
+
     beforeRouteLeave: function () {
       this.$router.beforeEach((to, from) => {
         if (!from || !from.meta || !from.meta.order) {

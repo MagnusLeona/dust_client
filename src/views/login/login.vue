@@ -71,9 +71,10 @@ export default {
             return Promise.reject(0);
           }
         })
-        .then((res) => {
+        .then((re) => {
+          console.log("Registerd return ", re);
           return Login({
-            id: res.id,
+            id: re.id,
             password: password,
           });
         })

@@ -20,8 +20,10 @@ export default {
   },
   setup(props) {
     const content = marked(props.articleContent);
+    console.log(content);
     let htmlMd = ref("");
     htmlMd.value = content;
+
     return {
       htmlMd,
     };
@@ -68,6 +70,17 @@ export default {
       backdrop-filter: blur(2px);
       box-shadow: 0 0 3px #dedede, 0 0 8px #dadada, 0 0 12px #dcdcdc,
         0 0 24px #ddd, 0 0 48px #eee;
+      overflow: hidden;
+
+      ::v-deep p {
+        img {
+          width: 100%;
+        }
+      }
+
+      >>> img {
+        width: 300px;
+      }
 
       > ul {
         > li {

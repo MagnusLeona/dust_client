@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="main-container">
     <function-list
       :cardConfigs="cardConfigs"
@@ -28,17 +28,17 @@ export default {
           url: "/mission/main",
           component: "FunctionTodos",
         },
-        {
-          title: "Stories",
-          content: "How about share your experienced thought ?",
-          url: "/stories/main",
-          component: "FunctionTellers",
-        },
+        // {
+        //   title: "Stories",
+        //   content: "How about share your experienced thought ?",
+        //   url: "/stories/main",
+        //   component: "FunctionTellers",
+        // },
         {
           title: "Whats more?",
           content:
             "More functions are on the way, and you can tell us what you need for our inspiration ...",
-          url: "/login",
+          // url: "/login",
           component: "FunctionMore",
         },
       ],

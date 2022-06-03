@@ -2,10 +2,19 @@
   <div class="mid">
     <transition name="user" mode="out-in">
       <keep-alive>
-        <UserCardHome v-if="selected === 0" />
-        <UserCardLoved v-else-if="selected === 1" />
+        <UserCardHome v-if="selected === 0" :loaded="loaded" />
+        <UserCardLoved
+          v-else-if="selected === 1"
+          :articles="marked"
+          :loaded="loaded"
+          @toTechies="$emit('toTechies')"
+        />
         <UserCardNotice v-else-if="selected === 2" />
-        <UserCardDesign v-else-if="selected === 3" :articles="articles" />
+        <UserCardDesign
+          v-else-if="selected === 3"
+          :articles="articles"
+          @toUpload="$emit('toUpload')"
+        />
       </keep-alive>
     </transition>
   </div>
@@ -24,6 +33,12 @@ export default {
     },
     articles: {
       type: Array,
+    },
+    marked: {
+      type: Array,
+    },
+    loaded: {
+      type: Boolean,
     },
   },
   components: {

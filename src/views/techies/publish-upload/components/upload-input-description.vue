@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .description {
-  width: 100%;
+  width: 70%;
   display: flex;
   justify-content: flex-start;
   position: relative;

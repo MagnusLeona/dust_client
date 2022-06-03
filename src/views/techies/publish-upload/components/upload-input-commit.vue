@@ -10,7 +10,7 @@ export default {};
 
 <style lang="scss" scoped>
 .commit {
-  width: 100%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;

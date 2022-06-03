@@ -26,6 +26,10 @@ export const QueryArticlesByUser  = function(params) {
   return request({url: `${BASE_SERVER_URL}/user/article/get`, method: "GET"})
 }
 
+export const QueryMarkedArticles = function(params) {
+  return request({url: `${BASE_SERVER_URL}/user/article/marked/get`, method: "GET"})
+}
+
 export const FancyArticle = function(params) {
   return request({url: `${BASE_SERVER_URL}/user/article/like/try/${params}`, method: "GET"})
 }

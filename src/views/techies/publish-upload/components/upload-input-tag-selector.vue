@@ -77,9 +77,17 @@ export default {
         case "2":
           return "前端";
         case "3":
-          return "容器";
+          return "架构";
         case "4":
           return "运维";
+        case "5":
+          return "原生";
+        case "6":
+          return "算法";
+        case "7":
+          return "AI";
+        case "100":
+          return "其他";
       }
     },
   },

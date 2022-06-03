@@ -1,17 +1,19 @@
 <template>
   <div class="left">
-    <div class="left-name flex-center">
-      <div class="avator">
-        <svg-icon icon="icon-default-avator" class="icon"></svg-icon>
-        <div class="welcome">Hi~</div>
-      </div>
-      <div class="name">
-        <div>{{ user?.data?.name || "Mr.Who" }}</div>
-        <div>
-          <svg-icon icon="icon-settings" class="icon-settings"></svg-icon>
+    <transition name="name-card">
+      <div class="left-name flex-center" v-if="loaded">
+        <div class="avator">
+          <svg-icon icon="icon-default-avator" class="icon"></svg-icon>
+          <div class="welcome">Hi~</div>
+        </div>
+        <div class="name">
+          <div>{{ user?.data?.name || "Mr.Who" }}</div>
+          <div>
+            <svg-icon icon="icon-settings" class="icon-settings"></svg-icon>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
     <div class="left-header flex-center">
       <div class="menus">
         <div class="menu-button home">
@@ -102,6 +104,9 @@ export default {
     selected: {
       type: Number,
       default: () => 0,
+    },
+    loaded: {
+      type: Boolean,
     },
   },
 };
@@ -395,5 +400,15 @@ export default {
 .icon-settings {
   width: 25px;
   height: 25px;
+}
+
+.name-card-enter-from,
+.name-card-leave-to {
+  transform: translate3d(-40px, 0, 0);
+}
+
+.name-card-enter-active,
+.name-card-leave-active {
+  transition: all ease 0.3s;
 }
 </style>

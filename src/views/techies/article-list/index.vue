@@ -1,5 +1,5 @@
 <template>
-  <div class="front-end">
+  <div class="front-end flex-center">
     <ArticleList :articles="articles" @toDetail="toDetail" />
     <ArticleBack @back="back" />
   </div>
@@ -57,7 +57,8 @@ export default {
 <style lang="scss" scoped>
 .front-end {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow: overlay;
   background-image: radial-gradient(
       circle at 13% 47%,
       rgba(140, 140, 140, 0.03) 0%,
@@ -108,16 +109,5 @@ export default {
       transparent 100%
     ),
     linear-gradient(90deg, rgba(228, 231, 226, 0.8), rgba(228, 230, 225, 0.6));
-
-  &-box {
-    width: 100%;
-    padding: 100px 100px;
-
-    .front-end-article {
-      width: 100%;
-      padding: 20px 50px;
-      border: 2px solid black;
-    }
-  }
 }
 </style>

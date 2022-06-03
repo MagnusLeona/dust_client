@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-title" @click="$emit('toDetail', article.id)">
       <div>
-        {{ article.name + article.id }}
+        {{ article.name }}
       </div>
       <div class="card-title-author flex-center">
         <svg-icon icon="icon-author" class="icon-author"></svg-icon>

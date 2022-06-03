@@ -5,7 +5,12 @@
         class="home-navigator-body"
         v-show="home"
         :class="home ? 'navi-show' : ''"
-      ></div>
+      >
+        <div class="item" @click="$emit('toLogin')">用户登录</div>
+        <div class="item" @click="$emit('toUser')">个人主页</div>
+        <div class="item" @click="$emit('toMain')">功能入口</div>
+        <div class="item" @click="$emit('toTechies')">技术分享</div>
+      </div>
     </transition>
   </div>
 </template>
@@ -33,8 +38,27 @@ export default {
   &-body {
     width: 300px;
     height: 500px;
+    padding: 30px 0;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    .item {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 1);
+      padding: 10px 20px;
+      transition: all ease 0.3s;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      border-bottom: 1.5px solid white;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
   }
 }
 

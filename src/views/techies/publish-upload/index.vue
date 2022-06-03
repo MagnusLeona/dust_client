@@ -126,9 +126,9 @@ export default {
       this.tags.splice(this.tags.indexOf(value), 1);
     },
 
-    back: function() {
-      this.$router.go(-1)
-    }
+    back: function () {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
@@ -139,7 +139,6 @@ export default {
   height: 100%;
   display: flex;
   justify-content: center;
-  overflow: overlay;
   background-image: repeating-linear-gradient(
       90deg,
       hsla(352, 0%, 68%, 0.09) 0px,
@@ -171,8 +170,23 @@ export default {
     linear-gradient(90deg, rgb(211, 206, 205), rgb(240, 236, 234));
 
   &-body {
+    width: 100%;
     padding: 50px;
-    width: 70%;
+    overflow: overlay;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: rgba(95, 66, 95, 0.1);
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #65544f;
+      border-radius: 2px;
+    }
   }
 }
 </style>
